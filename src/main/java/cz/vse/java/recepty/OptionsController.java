@@ -61,11 +61,11 @@ public class OptionsController {
             if (activityCombo.getValue() != null) user.getPhysicalActivity(activityCombo.getValue());
             if (goalCombo.getValue() != null) user.setPersonalGoal(goalCombo.getValue());
 
-            // Dummy recalculation
-            user.setRecommendedKcal(user.getWeight() * 25);
-            user.setRecommendedProteins(user.getWeight() * 2);
-            user.setRecommendedFats(user.getWeight() * 1);
-            user.setRecommendedCarbs(user.getWeight() * 3);
+            cz.vse.java.recepty.logic.Vypocty vypocty = new cz.vse.java.recepty.logic.Vypocty(user);
+            user.setRecommendedKcal((int) vypocty.vypocetTDEE());
+            user.setRecommendedProteins((int) vypocty.vypocetProteiny());
+            user.setRecommendedFats((int) vypocty.vypocetTuky());
+            user.setRecommendedCarbs((int) vypocty.vypocetSacharidy());
 
             updateTargetsMatrix(user);
         }

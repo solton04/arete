@@ -12,6 +12,8 @@
 
     <ComboBox fx:id="goalCombo" maxWidth="300" promptText="Select your goal"/>
 
+    <Label fx:id="errorLabel" style="-fx-text-fill: red;" maxWidth="300" wrapText="true"/>
+
     <Button text="Calculate Targets" onAction="#handleNext" maxWidth="300" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
     <Button text="Back" onAction="#handleBack" maxWidth="300"/>
 

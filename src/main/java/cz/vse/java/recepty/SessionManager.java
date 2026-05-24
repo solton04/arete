@@ -22,9 +22,13 @@ public class SessionManager {
     private List<Recept> allRecipes;
     private List<Recept> savedRecipes;
 
+    // A list of registered users
+    private List<Uzivatel> registeredUsers;
+
     private SessionManager() {
         allRecipes = new ArrayList<>();
         savedRecipes = new ArrayList<>();
+        registeredUsers = new ArrayList<>();
         initMockData();
     }
 
@@ -61,7 +65,29 @@ public class SessionManager {
         savedRecipes.remove(recept);
     }
 
+    public List<Uzivatel> getRegisteredUsers() {
+        return registeredUsers;
+    }
+
+    public void addRegisteredUser(Uzivatel user) {
+        registeredUsers.add(user);
+    }
+
     private void initMockData() {
+        // Add a dummy user
+        Uzivatel dummyUser = new Uzivatel.Builder()
+            .setAge(25)
+            .setGender(true)
+            .setWeight(80)
+            .setHeight(185)
+            .setPhysicalActivity(PhysicalActivity.MODERATE)
+            .build();
+        dummyUser.setName("Test User");
+        dummyUser.setEmail("test@test.com");
+        dummyUser.setPassword("password");
+        dummyUser.setPersonalGoal(PersonalGoal.GENERAL_HEALTH);
+        registeredUsers.add(dummyUser);
+
         // Breakfast mock recipe
         Map<Integer, String> inst1 = new HashMap<>();
         inst1.put(1, "Mix oats and milk");

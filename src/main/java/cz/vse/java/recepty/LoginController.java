@@ -4,25 +4,45 @@ import cz.vse.java.recepty.logic.Uzivatel;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Label;
+import java.util.List;
 
 public class LoginController {
 
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
+    @FXML private Label errorLabel;
 
     @FXML
     public void handleSignIn() {
-        // Mock sign in - simply load the first user and go to home
-        Uzivatel mockUser = new Uzivatel.Builder()
-            .setAge(25)
-            .setGender(true)
-            .setWeight(80)
-            .setHeight(185)
-            .setPhysicalActivity(cz.vse.java.recepty.enums.PhysicalActivity.MODERATE)
-            .build();
-        mockUser.setName("John Doe");
-        SessionManager.getInstance().setCurrentUser(mockUser);
-        AppViewManager.getInstance().changeScene("home.fxml");
+        String email = emailField.getText();
+        String password = passwordField.getText();
+
+        if (email == null || !email.contains("@")) {
+            errorLabel.setText("Invalid email format.");
+            return;
+        }
+
+        if (password == null || password.isEmpty()) {
+            errorLabel.setText("Password cannot be empty.");
+            return;
+        }
+
+        List<Uzivatel> users = SessionManager.getInstance().getRegisteredUsers();
+        Uzivatel foundUser = null;
+        for (Uzivatel u : users) {
+            if (u.getEmail() != null && u.getEmail().equals(email) && u.getPassword() != null && u.getPassword().equals(password)) {
+                foundUser = u;
+                break;
+            }
+        }
+
+        if (foundUser != null) {
+            SessionManager.getInstance().setCurrentUser(foundUser);
+            AppViewManager.getInstance().changeScene("home.fxml");
+        } else {
+            errorLabel.setText("Invalid email or password.");
+        }
     }
 
     @FXML

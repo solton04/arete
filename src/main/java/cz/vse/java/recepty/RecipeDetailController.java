@@ -7,10 +7,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 import java.util.Map;
+import java.net.URL;
 
 public class RecipeDetailController {
 
@@ -32,6 +34,12 @@ public class RecipeDetailController {
     @FXML
     public void initialize() {
         if (selectedRecipe != null) {
+            // Load placeholder image
+            URL imageUrl = getClass().getResource("/cz/vse/java/recepty/images/recipe_placeholder.jpg");
+            if (imageUrl != null) {
+                recipeImage.setImage(new Image(imageUrl.toString()));
+            }
+
             nameLabel.setText(selectedRecipe.getName());
 
             // Build tags string
