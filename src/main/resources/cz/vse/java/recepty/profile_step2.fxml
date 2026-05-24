@@ -10,8 +10,16 @@
     <Label text="Step 2 of 5" style="-fx-text-fill: gray;"/>
     <Label text="Body Metrics" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
-    <TextField fx:id="weightField" promptText="Weight (kg)" maxWidth="300"/>
-    <TextField fx:id="heightField" promptText="Height (cm)" maxWidth="300"/>
+    <VBox maxWidth="300" spacing="5">
+        <Label text="Weight"/>
+        <TextField fx:id="weightField" promptText="Weight (kg)"/>
+    </VBox>
+    <VBox maxWidth="300" spacing="5">
+        <Label text="Height"/>
+        <TextField fx:id="heightField" promptText="Height (cm)"/>
+    </VBox>
+
+    <Label fx:id="errorLabel" style="-fx-text-fill: red;" maxWidth="300" wrapText="true"/>
 
     <Button text="Next" onAction="#handleNext" maxWidth="300" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
     <Button text="Back" onAction="#handleBack" maxWidth="300"/>

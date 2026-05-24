@@ -13,6 +13,8 @@
     <Label text="Job Type / Activity Level" maxWidth="300"/>
     <ComboBox fx:id="activityCombo" maxWidth="300" promptText="Select your activity level"/>
 
+    <Label fx:id="errorLabel" style="-fx-text-fill: red;" maxWidth="300" wrapText="true"/>
+
     <Button text="Next" onAction="#handleNext" maxWidth="300" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
     <Button text="Back" onAction="#handleBack" maxWidth="300"/>
 

@@ -15,13 +15,30 @@
 
             <Label text="Options" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
-            <TextField fx:id="nameField" promptText="Name" maxWidth="300"/>
-            <TextField fx:id="ageField" promptText="Age" maxWidth="300"/>
-            <TextField fx:id="weightField" promptText="Weight (kg)" maxWidth="300"/>
-            <TextField fx:id="heightField" promptText="Height (cm)" maxWidth="300"/>
-
-            <ComboBox fx:id="activityCombo" maxWidth="300" promptText="Activity Level"/>
-            <ComboBox fx:id="goalCombo" maxWidth="300" promptText="Goal"/>
+            <VBox maxWidth="300" spacing="2">
+                <Label text="Name"/>
+                <TextField fx:id="nameField" promptText="Name"/>
+            </VBox>
+            <VBox maxWidth="300" spacing="2">
+                <Label text="Age"/>
+                <TextField fx:id="ageField" promptText="Age"/>
+            </VBox>
+            <VBox maxWidth="300" spacing="2">
+                <Label text="Weight (kg)"/>
+                <TextField fx:id="weightField" promptText="Weight (kg)"/>
+            </VBox>
+            <VBox maxWidth="300" spacing="2">
+                <Label text="Height (cm)"/>
+                <TextField fx:id="heightField" promptText="Height (cm)"/>
+            </VBox>
+            <VBox maxWidth="300" spacing="2">
+                <Label text="Activity Level"/>
+                <ComboBox fx:id="activityCombo" maxWidth="300" promptText="Activity Level"/>
+            </VBox>
+            <VBox maxWidth="300" spacing="2">
+                <Label text="Goal"/>
+                <ComboBox fx:id="goalCombo" maxWidth="300" promptText="Goal"/>
+            </VBox>
 
             <Button text="Update Profile" onAction="#handleUpdate" maxWidth="300" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
 

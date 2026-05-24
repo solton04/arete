@@ -6,10 +6,12 @@ import cz.vse.java.recepty.logic.Vypocty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 
 public class ProfileStep4Controller {
 
     @FXML private ComboBox<PersonalGoal> goalCombo;
+    @FXML private Label errorLabel;
 
     @FXML
     public void initialize() {
@@ -18,21 +20,28 @@ public class ProfileStep4Controller {
 
     @FXML
     public void handleNext() {
+        errorLabel.setText("");
+
+        if (goalCombo.getValue() == null) {
+            errorLabel.setText("Please select your goal.");
+            return;
+        }
+
         Uzivatel user = SessionManager.getInstance().getCurrentUser();
-        if (user != null && goalCombo.getValue() != null) {
+        if (user != null) {
             user.setPersonalGoal(goalCombo.getValue());
 
-            // Do dummy calculation. In reality, would use user.getAge(), weight, height
-            // Let's create a temporary Vypocty with the user's data (if the Vypocty class allowed it)
-            // But Vypocty has hardcoded user creation in its constructor/fields.
-            // Let's just set some calculated values based on generic formulas or Vypocty
+            Vypocty vypocty = new Vypocty(user);
 
-            // Setting values for demo
-            user.setRecommendedKcal(2000);
-            user.setRecommendedProteins(150);
-            user.setRecommendedFats(60);
-            user.setRecommendedCarbs(200);
-            user.setRecommendedSugars(50);
+            // Setting calculated values based on Vypocty
+            user.setRecommendedKcal((int) vypocty.vypocetTDEE());
+            user.setRecommendedProteins((int) vypocty.vypocetProteiny());
+            user.setRecommendedFats((int) vypocty.vypocetTuky());
+            user.setRecommendedCarbs((int) vypocty.vypocetSacharidy());
+            user.setRecommendedSugars(50); // Hardcoded as Vypocty doesn't compute sugars
+
+            // Add user to registered users list after completing profile setup
+            SessionManager.getInstance().addRegisteredUser(user);
         }
         AppViewManager.getInstance().changeScene("profile_step5.fxml");
     }
