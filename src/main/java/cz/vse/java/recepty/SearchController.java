@@ -8,6 +8,14 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
+/**
+ * Kontroler pro obrazovku vyhledávání.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class SearchController {
 
     @FXML private TextField searchField;

@@ -18,6 +18,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Třída pro správu databáze a komunikaci s ní.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class DatabaseManager {
 
     private static final String DB_URL = "jdbc:sqlite:recepty.db";

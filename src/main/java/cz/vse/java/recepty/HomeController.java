@@ -14,6 +14,14 @@ import java.io.InputStream;
 
 import java.util.List;
 
+/**
+ * Kontroler pro domovskou obrazovku aplikace.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class HomeController {
 
     @FXML private Label helloLabel;

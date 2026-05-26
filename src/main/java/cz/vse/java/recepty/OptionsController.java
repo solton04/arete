@@ -9,6 +9,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+/**
+ * Třída sloužící jako kontroler pro obrazovku nastavení aplikace.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class OptionsController {
 
     @FXML private TextField nameField;

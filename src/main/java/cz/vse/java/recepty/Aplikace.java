@@ -6,6 +6,14 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Hlavní třída aplikace zodpovědná za její spuštění.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class Aplikace extends Application {
 
     private static final Logger LOG = LoggerFactory.getLogger(Aplikace.class);

@@ -7,6 +7,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
+/**
+ * Kontroler pro třetí krok vytváření uživatelského profilu.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class ProfileStep3Controller {
 
     @FXML private ComboBox<PhysicalActivity> activityCombo;
