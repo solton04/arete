@@ -8,6 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import java.io.InputStream;
 
 import java.util.List;
 
@@ -78,13 +81,26 @@ public class HomeController {
                 // Clicking the card opens recipe detail
                 card.setOnMouseClicked(e -> openRecipeDetail(r));
 
+                ImageView imageView = new ImageView();
+                imageView.setFitHeight(100);
+                imageView.setFitWidth(100);
+                imageView.setPreserveRatio(true);
+                if (r.getImage() != null) {
+                    imageView.setImage(r.getImage());
+                } else {
+                    // Použijeme placeholder z resources
+                    InputStream is = getClass().getResourceAsStream("/cz/vse/java/recepty/images/recipe_placeholder.jpg");
+                    if (is != null) {
+                        imageView.setImage(new Image(is));
+                    }
+                }
                 Label name = new Label(r.getName());
                 name.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
 
                 Label time = new Label(r.getPrepareTime() + " mins");
                 time.setStyle("-fx-text-fill: gray;");
 
-                card.getChildren().addAll(name, time);
+                card.getChildren().addAll(imageView, name, time);
                 recipesContainer.getChildren().add(card);
             }
         }

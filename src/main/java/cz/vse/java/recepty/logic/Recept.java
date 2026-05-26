@@ -6,6 +6,7 @@ import cz.vse.java.recepty.enums.TypeFood;
 
 import java.util.List;
 import java.util.Map;
+import javafx.scene.image.Image;
 /**
  * Třída reprezentující konkrétní recept v systému.
  * Uchovává veškeré informace o jídle, včetně názvu, nutričních hodnot,
@@ -69,6 +70,8 @@ public class Recept {
 	 * Název receptu (např. "Špagety Carbonara").
 	 */
 	private String name;
+
+	private Image image;
 
 	public Recept(Difficulty difficulty, int kcal, int proteins, int fats, int carbs, int sugars, List tags, Map instructions, TypeFood typeFood, int prepareTime, RichIn richIn, List diets, String name) {
 		this.difficulty = difficulty;
@@ -180,6 +183,14 @@ public class Recept {
 
 	public void setDiets(List diets) {
 		this.diets = diets;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	public String getName() {

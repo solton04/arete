@@ -11,16 +11,27 @@ public class Aplikace extends Application {
     private static final Logger LOG = LoggerFactory.getLogger(Aplikace.class);
 
     public static void main(String[] args) {
-
-        if (args.length > 0 && args[0].equals("text")) {
-            LOG.info("Spouštím aplikaci v textovém režimu.");
-
-            Platform.exit();
-            System.exit(0);
-
+        if (args.length > 0 && args[0].equals("db")) {
+            System.setProperty("recepty.use_db", "true");
         } else {
+            System.setProperty("recepty.use_db", "false");
+        }
+        launch(args);
+    }
 
-            launch(args);
+    @Override
+    public void init() throws Exception {
+        String useDb = System.getProperty("recepty.use_db", "false");
+        if ("true".equals(useDb)) {
+            LOG.info("Spouštím aplikaci s databází.");
+            try {
+                cz.vse.java.recepty.logic.DatabaseManager.initDatabase();
+                cz.vse.java.recepty.SessionManager.getInstance().loadRecipesFromDatabase();
+            } catch (Exception e) {
+                LOG.error("Nepodařilo se inicializovat databázi: ", e);
+            }
+        } else {
+            LOG.info("Spouštím aplikaci bez databáze.");
         }
     }
 

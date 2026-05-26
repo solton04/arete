@@ -36,12 +36,13 @@ public class RecipeDetailController {
         if (selectedRecipe != null) {
             // Load placeholder image
             URL imageUrl = getClass().getResource("/cz/vse/java/recepty/images/recipe_placeholder.jpg");
-            if (imageUrl != null) {
+            if (selectedRecipe.getImage() != null) {
+                recipeImage.setImage(selectedRecipe.getImage());
+            } else if (imageUrl != null) {
                 recipeImage.setImage(new Image(imageUrl.toString()));
             }
 
             nameLabel.setText(selectedRecipe.getName());
-
             // Build tags string
             StringBuilder tags = new StringBuilder();
             tags.append(selectedRecipe.getTypeFood().toString().toLowerCase()).append(", ");
