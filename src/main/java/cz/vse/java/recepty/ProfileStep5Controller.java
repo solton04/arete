@@ -4,6 +4,14 @@ import cz.vse.java.recepty.logic.Uzivatel;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
+/**
+ * Kontroler pro pátý krok vytváření uživatelského profilu.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class ProfileStep5Controller {
 
     @FXML private VBox matrixContainer;

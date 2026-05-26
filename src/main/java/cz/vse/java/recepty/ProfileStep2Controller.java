@@ -5,6 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 
+/**
+ * Kontroler pro druhý krok vytváření uživatelského profilu.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class ProfileStep2Controller {
 
     @FXML private TextField weightField;

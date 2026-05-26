@@ -14,6 +14,14 @@ import javafx.scene.layout.VBox;
 import java.util.Map;
 import java.net.URL;
 
+/**
+ * Kontroler pro obrazovku detailu receptu.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class RecipeDetailController {
 
     public static Recept selectedRecipe;

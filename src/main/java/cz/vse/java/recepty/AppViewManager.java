@@ -7,6 +7,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Třída spravující zobrazení a přepínání jednotlivých obrazovek.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class AppViewManager {
     private static AppViewManager instance;
     private Stage primaryStage;

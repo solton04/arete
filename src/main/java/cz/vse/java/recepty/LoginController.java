@@ -7,6 +7,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.Label;
 import java.util.List;
 
+/**
+ * Kontroler pro přihlašovací obrazovku.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class LoginController {
 
     @FXML private TextField emailField;

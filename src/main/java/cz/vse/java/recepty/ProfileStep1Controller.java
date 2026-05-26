@@ -7,6 +7,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Label;
 
+/**
+ * Kontroler pro první krok vytváření uživatelského profilu.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class ProfileStep1Controller {
 
     @FXML private TextField nameField;

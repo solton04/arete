@@ -7,6 +7,14 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
+/**
+ * Kontroler pro zobrazení mých receptů.
+ *
+ *
+ * @author Vojtěch Soldán
+ * @version 0.1 (26. 5. 2026)
+ *
+ */
 public class MyRecipesController {
 
     @FXML private VBox recipesContainer;
