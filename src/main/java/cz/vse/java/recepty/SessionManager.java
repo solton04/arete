@@ -16,6 +16,13 @@ import java.util.List;
 import java.util.Map;
 
 public class SessionManager {
+    public void loadRecipesFromDatabase() {
+        try {
+            this.allRecipes = cz.vse.java.recepty.logic.DatabaseManager.loadRecipes();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private static SessionManager instance;
 
     private Uzivatel currentUser;
