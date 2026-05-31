@@ -1,18 +1,22 @@
 package cz.vse.java.recepty;
 
 import cz.vse.java.recepty.enums.TypeFood;
+import cz.vse.java.recepty.enums.Difficulty;
+import cz.vse.java.recepty.enums.RichIn;
 import cz.vse.java.recepty.logic.Recept;
 import cz.vse.java.recepty.logic.Uzivatel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import java.io.InputStream;
-
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Kontroler pro domovskou obrazovku aplikace.
@@ -33,6 +37,10 @@ public class HomeController {
     @FXML private Button btnBreakfast;
     @FXML private Button btnLunch;
     @FXML private Button btnDinner;
+    @FXML private Button btnFilter;
+
+    private TypeFood currentTypeFood = TypeFood.BREAKFAST;
+    private String currentFilter = "None";
 
     @FXML
     public void initialize() {
@@ -82,6 +90,37 @@ public class HomeController {
 
         for (Recept r : allRecipes) {
             if (r.getTypeFood() == type) {
+                boolean match = false;
+                switch (currentFilter) {
+                    case "None":
+                        match = true;
+                        break;
+                    case "Difficulty: Easy":
+                        match = (r.getDifficulty() == Difficulty.EASY);
+                        break;
+                    case "Difficulty: Medium":
+                        match = (r.getDifficulty() == Difficulty.MEDIUM);
+                        break;
+                    case "Difficulty: Hard":
+                        match = (r.getDifficulty() == Difficulty.HARD);
+                        break;
+                    case "Rich in: Protein":
+                        match = (r.getRichIn() == RichIn.PROTEIN);
+                        break;
+                    case "Rich in: Carbs":
+                        match = (r.getRichIn() == RichIn.CARBS);
+                        break;
+                    case "Rich in: Fats":
+                        match = (r.getRichIn() == RichIn.FATS);
+                        break;
+                    default:
+                        match = true;
+                }
+
+                if (!match) {
+                    continue;
+                }
+
                 // Create a recipe card
                 VBox card = new VBox(5);
                 card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-background-radius: 5; -fx-border-color: #ddd; -fx-border-radius: 5;");
@@ -128,20 +167,46 @@ public class HomeController {
 
     @FXML
     public void showBreakfast() {
+        currentTypeFood = TypeFood.BREAKFAST;
         updateTabs(btnBreakfast);
         renderRecipes(TypeFood.BREAKFAST);
     }
 
     @FXML
     public void showLunch() {
+        currentTypeFood = TypeFood.LUNCH;
         updateTabs(btnLunch);
         renderRecipes(TypeFood.LUNCH);
     }
 
     @FXML
     public void showDinner() {
+        currentTypeFood = TypeFood.DINNER;
         updateTabs(btnDinner);
         renderRecipes(TypeFood.DINNER);
+    }
+
+    @FXML
+    public void handleFilter() {
+        List<String> options = Arrays.asList(
+            "None",
+            "Difficulty: Easy",
+            "Difficulty: Medium",
+            "Difficulty: Hard",
+            "Rich in: Protein",
+            "Rich in: Carbs",
+            "Rich in: Fats"
+        );
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(currentFilter, options);
+        dialog.setTitle("Filter Recipes");
+        dialog.setHeaderText("Select filter criteria");
+        dialog.setContentText("Filter:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            currentFilter = result.get();
+            renderRecipes(currentTypeFood);
+        }
     }
 
     @FXML
