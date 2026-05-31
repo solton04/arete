@@ -38,6 +38,7 @@ public class HomeController {
     @FXML private Button btnLunch;
     @FXML private Button btnDinner;
     @FXML private Button btnFilter;
+    @FXML private VBox filterMenuContainer;
 
     private TypeFood currentTypeFood = TypeFood.BREAKFAST;
     private String currentFilter = "None";
@@ -188,26 +189,25 @@ public class HomeController {
 
     @FXML
     public void handleFilter() {
-        List<String> options = Arrays.asList(
-            "None",
-            "Difficulty: Easy",
-            "Difficulty: Medium",
-            "Difficulty: Hard",
-            "Rich in: Protein",
-            "Rich in: Carbs",
-            "Rich in: Fats"
-        );
-        ChoiceDialog<String> dialog = new ChoiceDialog<>(currentFilter, options);
-        dialog.setTitle("Filter Recipes");
-        dialog.setHeaderText("Select filter criteria");
-        dialog.setContentText("Filter:");
-
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            currentFilter = result.get();
-            renderRecipes(currentTypeFood);
-        }
+        boolean isVisible = !filterMenuContainer.isVisible();
+        filterMenuContainer.setVisible(isVisible);
+        filterMenuContainer.setManaged(isVisible);
     }
+
+    private void applyFilter(String filterName) {
+        currentFilter = filterName;
+        filterMenuContainer.setVisible(false);
+        filterMenuContainer.setManaged(false);
+        renderRecipes(currentTypeFood);
+    }
+
+    @FXML public void filterNone() { applyFilter("None"); }
+    @FXML public void filterEasy() { applyFilter("Difficulty: Easy"); }
+    @FXML public void filterMedium() { applyFilter("Difficulty: Medium"); }
+    @FXML public void filterHard() { applyFilter("Difficulty: Hard"); }
+    @FXML public void filterProtein() { applyFilter("Rich in: Protein"); }
+    @FXML public void filterCarbs() { applyFilter("Rich in: Carbs"); }
+    @FXML public void filterFats() { applyFilter("Rich in: Fats"); }
 
     @FXML
     public void handleMyRecipes() {
