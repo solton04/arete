@@ -16,7 +16,20 @@
 
                 <Label text="Search Recipes" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
-                <TextField fx:id="searchField" promptText="Enter recipe name..." onKeyReleased="#handleSearchType"/>
+                <HBox spacing="10">
+                    <TextField fx:id="searchField" promptText="Enter recipe name..." onKeyReleased="#handleSearchType" HBox.hgrow="ALWAYS"/>
+                    <Button text="Filter" onAction="#handleFilter" style="-fx-background-color: #e0e0e0;"/>
+                </HBox>
+
+                <VBox fx:id="filterMenuContainer" spacing="10" visible="false" managed="false" style="-fx-padding: 10; -fx-background-color: #f0f0f0; -fx-background-radius: 5;">
+                    <Button text="None" onAction="#filterNone" style="-fx-background-color: transparent; -fx-text-fill: #2196F3; -fx-font-weight: bold;"/>
+                    <Button text="Difficulty: Easy" onAction="#filterEasy" style="-fx-background-color: transparent;"/>
+                    <Button text="Difficulty: Medium" onAction="#filterMedium" style="-fx-background-color: transparent;"/>
+                    <Button text="Difficulty: Hard" onAction="#filterHard" style="-fx-background-color: transparent;"/>
+                    <Button text="Rich in: Protein" onAction="#filterProtein" style="-fx-background-color: transparent;"/>
+                    <Button text="Rich in: Carbs" onAction="#filterCarbs" style="-fx-background-color: transparent;"/>
+                    <Button text="Rich in: Fats" onAction="#filterFats" style="-fx-background-color: transparent;"/>
+                </VBox>
 
                 <VBox fx:id="recipesContainer" spacing="15"/>
 
