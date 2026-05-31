@@ -1,22 +1,22 @@
 package cz.vse.java.recepty;
 
-import cz.vse.java.recepty.enums.TypeFood;
 import cz.vse.java.recepty.enums.Difficulty;
 import cz.vse.java.recepty.enums.RichIn;
+import cz.vse.java.recepty.enums.TypeFood;
 import cz.vse.java.recepty.logic.Recept;
 import cz.vse.java.recepty.logic.Uzivatel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import java.io.InputStream;
-import java.util.Arrays;
+
+
+
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Kontroler pro domovskou obrazovku aplikace.
@@ -42,9 +42,9 @@ public class HomeController {
 
     private TypeFood currentTypeFood = TypeFood.BREAKFAST;
     private String currentFilter = "None";
-
     @FXML
     public void initialize() {
+
         Uzivatel user = SessionManager.getInstance().getCurrentUser();
         if (user != null) {
             helloLabel.setText("Hello " + (user.getName() != null ? user.getName() : "User") + "!");
@@ -88,9 +88,31 @@ public class HomeController {
     private void renderRecipes(TypeFood type) {
         recipesContainer.getChildren().clear();
         List<Recept> allRecipes = SessionManager.getInstance().getAllRecipes();
+        Uzivatel user = SessionManager.getInstance().getCurrentUser();
 
         for (Recept r : allRecipes) {
             if (r.getTypeFood() == type) {
+
+                // Filtrování receptů na základě MVP logiky (dle PersonalGoal)
+                boolean zobrazit = true;
+                if (user != null && user.getPersonalGoal() != null) {
+                    switch (user.getPersonalGoal()) {
+                        case MUSCLE_GAIN:
+                            if (r.getRichIn() != cz.vse.java.recepty.enums.RichIn.PROTEIN) zobrazit = false;
+                            break;
+                        case WEIGHT_LOSS:
+                            if (r.getKcal() > 500) zobrazit = false;
+                            break;
+                        case WEIGHT_GAIN:
+                            if (r.getKcal() <= 500) zobrazit = false;
+                            break;
+                        case IMPROVE_ENERGY:
+                            if (r.getRichIn() != cz.vse.java.recepty.enums.RichIn.CARBS) zobrazit = false;
+                            break;
+                        default:
+                            zobrazit = true; // Zobrazí vše pro GENERAL_HEALTH apod.
+                    }
+                }
                 boolean match = false;
                 switch (currentFilter) {
                     case "None":
@@ -121,47 +143,43 @@ public class HomeController {
                 if (!match) {
                     continue;
                 }
+                // Vykreslení karty receptu, pokud prošel filtrem
+                if (zobrazit) {
+                    VBox card = new VBox(5);
+                    card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-background-radius: 5; -fx-border-color: #ddd; -fx-border-radius: 5;");
+                    card.setOnMouseClicked(e -> openRecipeDetail(r));
 
-                // Create a recipe card
-                VBox card = new VBox(5);
-                card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-background-radius: 5; -fx-border-color: #ddd; -fx-border-radius: 5;");
+                    ImageView imageView = new ImageView();
+                    imageView.setFitHeight(100);
+                    imageView.setFitWidth(100);
+                    imageView.setPreserveRatio(true);
 
-                // Clicking the card opens recipe detail
-                card.setOnMouseClicked(e -> openRecipeDetail(r));
+                    if (r.getImage() != null) {
+                        imageView.setImage(r.getImage());
+                    } else {
 
-                ImageView imageView = new ImageView();
-                imageView.setFitHeight(100);
-                imageView.setFitWidth(100);
-                imageView.setPreserveRatio(true);
-                if (r.getImage() != null) {
-                    imageView.setImage(r.getImage());
-                } else {
-                    // Použijeme placeholder z resources
-                    InputStream is = getClass().getResourceAsStream("/cz/vse/java/recepty/images/recipe_placeholder.jpg");
-                    if (is != null) {
-                        imageView.setImage(new Image(is));
+                        InputStream is = getClass().getResourceAsStream("/cz/vse/java/recepty/images/recipe_placeholder.jpg");
+                        if (is != null) imageView.setImage(new Image(is));
                     }
+
+                    Label name = new Label(r.getName());
+                    name.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+
+                    Label time = new Label(r.getPrepareTime() + " mins | " + r.getKcal() + " kcal");
+                    time.setStyle("-fx-text-fill: gray;");
+
+                    card.getChildren().addAll(imageView, name, time);
+                    recipesContainer.getChildren().add(card);
+
                 }
-                Label name = new Label(r.getName());
-                name.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
-
-                Label time = new Label(r.getPrepareTime() + " mins");
-                time.setStyle("-fx-text-fill: gray;");
-
-                card.getChildren().addAll(imageView, name, time);
-                recipesContainer.getChildren().add(card);
             }
         }
         if (recipesContainer.getChildren().isEmpty()) {
-            recipesContainer.getChildren().add(new Label("No recipes found."));
+            recipesContainer.getChildren().add(new Label("Pro tvůj cíl jsme nenašli žádné recepty."));
         }
     }
 
     private void openRecipeDetail(Recept r) {
-        // We will store the selected recipe in a static variable or a service to pass it.
-        // But the easiest way without modifying too many classes is passing it via a controller.
-        // Let's create a temporary SelectedRecipeHolder or add to SessionManager.
-        // We'll add it to SessionManager shortly.
         RecipeDetailController.selectedRecipe = r;
         AppViewManager.getInstance().changeScene("recipe_detail.fxml");
     }
@@ -169,6 +187,7 @@ public class HomeController {
     @FXML
     public void showBreakfast() {
         currentTypeFood = TypeFood.BREAKFAST;
+
         updateTabs(btnBreakfast);
         renderRecipes(TypeFood.BREAKFAST);
     }
@@ -176,6 +195,7 @@ public class HomeController {
     @FXML
     public void showLunch() {
         currentTypeFood = TypeFood.LUNCH;
+
         updateTabs(btnLunch);
         renderRecipes(TypeFood.LUNCH);
     }
@@ -183,10 +203,10 @@ public class HomeController {
     @FXML
     public void showDinner() {
         currentTypeFood = TypeFood.DINNER;
+
         updateTabs(btnDinner);
         renderRecipes(TypeFood.DINNER);
     }
-
     @FXML
     public void handleFilter() {
         boolean isVisible = !filterMenuContainer.isVisible();
@@ -208,7 +228,6 @@ public class HomeController {
     @FXML public void filterProtein() { applyFilter("Rich in: Protein"); }
     @FXML public void filterCarbs() { applyFilter("Rich in: Carbs"); }
     @FXML public void filterFats() { applyFilter("Rich in: Fats"); }
-
     @FXML
     public void handleMyRecipes() {
         AppViewManager.getInstance().changeScene("my_recipes.fxml");
