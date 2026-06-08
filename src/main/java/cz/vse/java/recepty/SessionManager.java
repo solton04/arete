@@ -7,7 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Třída pro správu relace (session) a uchovávání stavových dat běžící aplikace.
@@ -27,6 +29,7 @@ public class SessionManager {
     private List<Recept> allRecipes;
     private List<Recept> savedRecipes;
     private List<Uzivatel> registeredUsers;
+    private Map<String, Integer> consumedRecipes;
 
     /**
      * Privátní konstruktor pro Singleton vzor.
@@ -37,6 +40,7 @@ public class SessionManager {
         this.allRecipes = new ArrayList<>();
         this.savedRecipes = new ArrayList<>();
         this.registeredUsers = new ArrayList<>();
+        this.consumedRecipes = new HashMap<>();
     }
 
     /**
@@ -134,5 +138,17 @@ public class SessionManager {
     public void addRegisteredUser(Uzivatel user) {
         registeredUsers.add(user);
         LOG.debug("Uživatel '{}' přidán do lokálního seznamu registrovaných uživatelů.", user.getEmail());
+    }
+
+    public Map<String, Integer> getConsumedRecipes() {
+        return consumedRecipes;
+    }
+
+    public void addConsumedRecipe(String name, int portions) {
+        consumedRecipes.put(name, portions);
+    }
+
+    public void removeConsumedRecipe(String name) {
+        consumedRecipes.remove(name);
     }
 }
