@@ -27,6 +27,7 @@ public class RecipeDetailController {
     public static Recept selectedRecipe;
 
     @FXML private Button btnSave;
+    @FXML private Button btnProgress;
     @FXML private ImageView recipeImage;
     @FXML private Label nameLabel;
     @FXML private Label tagsLabel;
@@ -42,6 +43,14 @@ public class RecipeDetailController {
     @FXML
     public void initialize() {
         if (selectedRecipe != null) {
+            Map<String, Integer> consumed = SessionManager.getInstance().getConsumedRecipes();
+            if (consumed.containsKey(selectedRecipe.getName())) {
+                portions = consumed.get(selectedRecipe.getName());
+            } else {
+                portions = 1;
+            }
+            portionsLabel.setText(String.valueOf(portions));
+
             // Load placeholder image
             URL imageUrl = getClass().getResource("/cz/vse/java/recepty/images/recipe_placeholder.jpg");
             if (selectedRecipe.getImage() != null) {
@@ -78,6 +87,17 @@ public class RecipeDetailController {
             }
 
             updateSaveButton();
+            updateProgressButton();
+        }
+    }
+
+    private void updateProgressButton() {
+        if (SessionManager.getInstance().getConsumedRecipes().containsKey(selectedRecipe.getName())) {
+            btnProgress.setText("Odstranit z příjmu");
+            btnProgress.setStyle("-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10;");
+        } else {
+            btnProgress.setText("Přidat");
+            btnProgress.setStyle("-fx-background-color: #43927D; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10;");
         }
     }
 
@@ -191,14 +211,25 @@ public class RecipeDetailController {
     public void handleAddProgress() {
         Uzivatel user = SessionManager.getInstance().getCurrentUser();
         if (user != null) {
-            user.setActualKcal(user.getActualKcal() + (selectedRecipe.getKcal() * portions));
-            user.setActualProtein(user.getActualProtein() + (selectedRecipe.getProteins() * portions));
-            user.setActualFats(user.getActualFats() + (selectedRecipe.getFats() * portions));
-            user.setActualCarb(user.getActualCarb() + (selectedRecipe.getCarbs() * portions));
+            Map<String, Integer> consumed = SessionManager.getInstance().getConsumedRecipes();
+            if (consumed.containsKey(selectedRecipe.getName())) {
+                int savedPortions = consumed.get(selectedRecipe.getName());
+                user.setActualKcal(user.getActualKcal() - (selectedRecipe.getKcal() * savedPortions));
+                user.setActualProtein(user.getActualProtein() - (selectedRecipe.getProteins() * savedPortions));
+                user.setActualFats(user.getActualFats() - (selectedRecipe.getFats() * savedPortions));
+                user.setActualCarb(user.getActualCarb() - (selectedRecipe.getCarbs() * savedPortions));
+                SessionManager.getInstance().removeConsumedRecipe(selectedRecipe.getName());
+            } else {
+                user.setActualKcal(user.getActualKcal() + (selectedRecipe.getKcal() * portions));
+                user.setActualProtein(user.getActualProtein() + (selectedRecipe.getProteins() * portions));
+                user.setActualFats(user.getActualFats() + (selectedRecipe.getFats() * portions));
+                user.setActualCarb(user.getActualCarb() + (selectedRecipe.getCarbs() * portions));
+                SessionManager.getInstance().addConsumedRecipe(selectedRecipe.getName(), portions);
+            }
 
             cz.vse.java.recepty.database.UzivatelRepository repo = new cz.vse.java.recepty.database.UzivatelRepository();
             repo.updateActualProgress(user);
+            updateProgressButton();
         }
-        AppViewManager.getInstance().changeScene("home.fxml");
     }
 }

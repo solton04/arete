@@ -43,7 +43,7 @@
 
                 <VBox fx:id="nutritionMatrixContainer" alignment="CENTER" style="-fx-padding: 10 0 10 0;"/>
 
-                <Button text="Add to Progress" onAction="#handleAddProgress" maxWidth="Infinity"
+                <Button fx:id="btnProgress" text="Add to Progress" onAction="#handleAddProgress" maxWidth="Infinity"
                         style="-fx-background-color: #43927D; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10;"/>
 
                 <Label text="Ingredients" style="-fx-font-weight: bold; -fx-font-size: 18px;"/>
