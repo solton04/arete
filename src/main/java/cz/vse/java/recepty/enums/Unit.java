@@ -13,7 +13,14 @@ public enum Unit {
     G,
     KG,
     TEASPOON,
-    PINCH
+    PINCH,
+
+    LARGE,
+    SLICES,
+    SLICE,
+    TBSP,
+    TSP,
+    HANDFUL
 
 
 }

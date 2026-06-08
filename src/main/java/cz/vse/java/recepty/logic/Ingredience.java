@@ -19,13 +19,13 @@ public class Ingredience {
 	/**
 	 * Požadované množství dané ingredience.
 	 */
-	private int amount;
+	private String amount;
 	/**
 	 * Měrná jednotka, ve které je množství udáváno (např. gramy, mililitry, lžíce).
 	 */
 	private Unit unit;
 
-	public Ingredience(String name, int amount, Unit unit) {
+	public Ingredience(String name, String amount, Unit unit) {
 		this.name = name;
 		this.amount = amount;
 		this.unit = unit;
@@ -39,11 +39,11 @@ public class Ingredience {
 		this.name = name;
 	}
 
-	public int getAmount() {
+	public String getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 

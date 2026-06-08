@@ -1,13 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="cz.vse.java.recepty.HomeController"
-      alignment="CENTER" spacing="20" prefHeight="600.0" prefWidth="800.0">
+<BorderPane prefHeight="800.0"
+            prefWidth="400.0"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cz.vse.java.recepty.HomeController">
 
-    <Label text="Arete test" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-padding: 0;">
+            <VBox spacing="12" style="-fx-padding: 10;">
 
-</VBox>
+                <Label fx:id="helloLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Poppins';"/>
+                <Label text="Are you ready to fulfill your goals?" style="-fx-text-fill: gray; -fx-font-family: 'Poppins';"/>
+
+                <Label fx:id="goalLabel"
+                       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #43927D; -fx-padding: 15; -fx-background-color: #E0F4EF;"/>
+
+                <Label text="Daily Targets" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                <VBox fx:id="targetsMatrixContainer" alignment="CENTER"/>
+
+                <Label text="Daily Progress" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+                <VBox fx:id="progressMatrixContainer" alignment="CENTER"/>
+
+                <VBox spacing="10" style="-fx-padding: 15">
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <Label text="Recipes for you" style="-fx-font-weight: bold; -fx-font-size: 18px;"/>
+                        <Button fx:id="btnFilter" text="Filter" onAction="#handleFilter" style="-fx-background-color: #e0e0e0;"/>
+                    </HBox>
+
+                    <VBox fx:id="filterMenuContainer" visible="false" managed="false"
+                          style="-fx-background-color: #f0f0f0; -fx-padding: 10; -fx-background-radius: 10; -fx-spacing: 5;">
+                        <Label text="Filter by Difficulty:" style="-fx-font-weight: bold; -fx-font-size: 12px;"/>
+                        <HBox spacing="5">
+                            <Button text="Easy" onAction="#filterEasy"/>
+                            <Button text="Medium" onAction="#filterMedium"/>
+                            <Button text="Hard" onAction="#filterHard"/>
+                        </HBox>
+                        <Label text="Filter by Rich In:" style="-fx-font-weight: bold; -fx-font-size: 12px;"/>
+                        <HBox spacing="5">
+                            <Button text="Protein" onAction="#filterProtein"/>
+                            <Button text="Carbs" onAction="#filterCarbs"/>
+                            <Button text="Fats" onAction="#filterFats"/>
+                        </HBox>
+                        <Button text="Clear Filter" onAction="#filterNone" style="-fx-text-fill: red;"/>
+                    </VBox>
+                    <HBox alignment="CENTER" spacing="10">
+                        <Button fx:id="btnBreakfast" text="Breakfast" onAction="#showBreakfast"
+                                style="-fx-background-color: #43927D; -fx-text-fill: white; -fx-background-radius: 15;"/>
+                        <Button fx:id="btnLunch" text="Lunch" onAction="#showLunch"
+                                style="-fx-background-color: #43927D; -fx-text-fill: white; -fx-background-radius: 15;"/>
+                        <Button fx:id="btnDinner" text="Dinner" onAction="#showDinner"
+                                style="-fx-background-color: #43927D; -fx-text-fill: white; -fx-background-radius: 15;"/>
+                    </HBox>
+
+                    <VBox fx:id="recipesContainer" spacing="15"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" spacing="20" style="-fx-background-color: #f8f8f8; -fx-padding: 15; -fx-border-color: #ccc; -fx-border-width: 1 0 0 0;">
+            <Button text="Home" style="-fx-background-color: #E0F4EF; -fx-font-weight: bold; -fx-text-fill: #43927D;"/>
+            <Button text="My Recipes" onAction="#handleMyRecipes" style="-fx-background-color: transparent;"/>
+            <Button text="Search" onAction="#handleSearch" style="-fx-background-color: transparent;"/>
+            <Button text="Options" onAction="#handleOptions" style="-fx-background-color: transparent;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

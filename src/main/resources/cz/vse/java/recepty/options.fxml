@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="800.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cz.vse.java.recepty.OptionsController">
+
+    <center>
+        <VBox alignment="CENTER" spacing="15" style="-fx-padding: 20;">
+
+            <Label text="Options" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+            <VBox maxWidth="300" spacing="2">
+                <Label text="Name"/>
+                <TextField fx:id="nameField" promptText="Name"/>
+            </VBox>
+            <VBox maxWidth="300" spacing="2">
+                <Label text="Age"/>
+                <TextField fx:id="ageField" promptText="Age"/>
+            </VBox>
+            <VBox maxWidth="300" spacing="2">
+                <Label text="Weight (kg)"/>
+                <TextField fx:id="weightField" promptText="Weight (kg)"/>
+            </VBox>
+            <VBox maxWidth="300" spacing="2">
+                <Label text="Height (cm)"/>
+                <TextField fx:id="heightField" promptText="Height (cm)"/>
+            </VBox>
+            <VBox maxWidth="300" spacing="2">
+                <Label text="Activity Level"/>
+                <ComboBox fx:id="activityCombo" maxWidth="300" promptText="Activity Level"/>
+            </VBox>
+            <VBox maxWidth="300" spacing="2">
+                <Label text="Goal"/>
+                <ComboBox fx:id="goalCombo" maxWidth="300" promptText="Goal"/>
+            </VBox>
+
+            <Button text="Update Profile" onAction="#handleUpdate" maxWidth="300"
+                    style="-fx-background-color: #43927D; -fx-text-fill: white; -fx-background-radius: 10;"/>
+
+            <Label text="Current Daily Targets" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-padding: 10 0 0 0;"/>
+            <VBox fx:id="targetsMatrixContainer" alignment="CENTER"/>
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" spacing="20" style="-fx-background-color: #f8f8f8; -fx-padding: 15; -fx-border-color: #ccc; -fx-border-width: 1 0 0 0;">
+            <Button text="Home" onAction="#handleHome" style="-fx-background-color: transparent;"/>
+            <Button text="My Recipes" onAction="#handleMyRecipes" style="-fx-background-color: transparent;"/>
+            <Button text="Search" onAction="#handleSearch" style="-fx-background-color: transparent;"/>
+            <Button text="Options" style="-fx-background-color: E0F4EF; -fx-font-weight: bold; -fx-text-fill: #43927D;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

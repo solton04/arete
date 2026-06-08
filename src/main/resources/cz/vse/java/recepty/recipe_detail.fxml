@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.Region?>
+<BorderPane prefHeight="800.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cz.vse.java.recepty.RecipeDetailController">
+
+    <top>
+        <HBox style="-fx-padding: 10;">
+            <Button text="Back" onAction="#handleBack" style="-fx-background-color: #E0F4EF; -fx-text-fill: #43927D; -fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnSave" text="Save" onAction="#handleSave" style="-fx-background-color: #E0F4EF; -fx-text-fill: #43927D; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-padding: 0;">
+            <VBox spacing="15" style="-fx-padding: 15;">
+
+                <ImageView fx:id="recipeImage" fitWidth="370" fitHeight="200" style="-fx-background-radius: 10;"/>
+
+                <Label fx:id="nameLabel" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Label fx:id="tagsLabel" style="-fx-text-fill: gray;"/>
+
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <Label fx:id="timeLabel" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="difficultyLabel" style="-fx-font-weight: bold;"/>
+
+                    <HBox alignment="CENTER" spacing="5" style="-fx-padding: 0 0 0 20;">
+                        <Label text="Portions: "/>
+                        <Button text="-" onAction="#decreasePortions"/>
+                        <Label fx:id="portionsLabel" text="1"/>
+                        <Button text="+" onAction="#increasePortions"/>
+                    </HBox>
+                </HBox>
+
+                <VBox fx:id="nutritionMatrixContainer" alignment="CENTER" style="-fx-padding: 10 0 10 0;"/>
+
+                <Button text="Add to Progress" onAction="#handleAddProgress" maxWidth="Infinity"
+                        style="-fx-background-color: #43927D; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10;"/>
+
+                <Label text="Ingredients" style="-fx-font-weight: bold; -fx-font-size: 18px;"/>
+                <VBox fx:id="ingredientsContainer" spacing="5"/>
+
+                <Label text="Instructions" style="-fx-font-weight: bold; -fx-font-size: 18px;"/>
+                <VBox fx:id="instructionsContainer" spacing="10"/>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

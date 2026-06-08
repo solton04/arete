@@ -218,6 +218,10 @@ public class Uzivatel extends Osoba {
 		this.physicalActivity = physicalActivity;
 	}
 
+	public void setPhysicalActivity(PhysicalActivity physicalActivity) {
+		this.physicalActivity = physicalActivity;
+	}
+
 	public PersonalGoal getPersonalGoal() {
 		return personalGoal;
 	}

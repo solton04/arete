@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="800.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cz.vse.java.recepty.SearchController">
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-padding: 0;">
+            <VBox spacing="15" style="-fx-padding: 20;">
+
+                <Label text="Search Recipes" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+                <HBox spacing="10">
+                    <TextField fx:id="searchField" promptText="Enter recipe name..." onKeyReleased="#handleSearchType" HBox.hgrow="ALWAYS"/>
+                    <Button text="Filter" onAction="#handleFilter" style="-fx-background-color: #e0e0e0;"/>
+                </HBox>
+
+                <VBox fx:id="filterMenuContainer" spacing="10" visible="false" managed="false" style="-fx-padding: 10; -fx-background-color: #f0f0f0; -fx-background-radius: 5;">
+                    <Button text="None" onAction="#filterNone" style="-fx-background-color: transparent; -fx-text-fill: #43927D; -fx-font-weight: bold;"/>
+                    <Button text="Difficulty: Easy" onAction="#filterEasy" style="-fx-background-color: transparent;"/>
+                    <Button text="Difficulty: Medium" onAction="#filterMedium" style="-fx-background-color: transparent;"/>
+                    <Button text="Difficulty: Hard" onAction="#filterHard" style="-fx-background-color: transparent;"/>
+                    <Button text="Rich in: Protein" onAction="#filterProtein" style="-fx-background-color: transparent;"/>
+                    <Button text="Rich in: Carbs" onAction="#filterCarbs" style="-fx-background-color: transparent;"/>
+                    <Button text="Rich in: Fats" onAction="#filterFats" style="-fx-background-color: transparent;"/>
+                </VBox>
+
+                <VBox fx:id="recipesContainer" spacing="15"/>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" spacing="20" style="-fx-background-color: #f8f8f8; -fx-padding: 15; -fx-border-color: #ccc; -fx-border-width: 1 0 0 0;">
+            <Button text="Home" onAction="#handleHome" style="-fx-background-color: transparent;"/>
+            <Button text="My Recipes" onAction="#handleMyRecipes" style="-fx-background-color: transparent;"/>
+            <Button text="Search" style="-fx-background-color: #E0F4EF; -fx-font-weight: bold; -fx-text-fill: #43927D;"/>
+            <Button text="Options" onAction="#handleOptions" style="-fx-background-color: transparent;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

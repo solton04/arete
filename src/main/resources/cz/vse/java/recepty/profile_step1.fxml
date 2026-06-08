@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox alignment="CENTER" spacing="15" prefHeight="800.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cz.vse.java.recepty.ProfileStep1Controller">
+
+    <Label text="Step 1 of 5" style="-fx-text-fill: gray;"/>
+    <Label text="Personal Information" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <VBox maxWidth="300" spacing="5">
+        <Label text="Name"/>
+        <TextField fx:id="nameField" promptText="Name"/>
+    </VBox>
+    <VBox maxWidth="300" spacing="5">
+        <Label text="Email"/>
+        <TextField fx:id="emailField" promptText="Email"/>
+    </VBox>
+    <VBox maxWidth="300" spacing="5">
+        <Label text="Password"/>
+        <PasswordField fx:id="passwordField" promptText="Password"/>
+    </VBox>
+    <VBox maxWidth="300" spacing="5">
+        <Label text="Age"/>
+        <TextField fx:id="ageField" promptText="Age"/>
+    </VBox>
+
+    <Label text="Gender:" maxWidth="300" alignment="CENTER_LEFT"/>
+    <HBox spacing="20" maxWidth="300" alignment="CENTER">
+        <fx:define>
+            <ToggleGroup fx:id="genderGroup"/>
+        </fx:define>
+        <RadioButton fx:id="maleRadio" text="Male" toggleGroup="$genderGroup" selected="true"/>
+        <RadioButton fx:id="femaleRadio" text="Female" toggleGroup="$genderGroup"/>
+    </HBox>
+
+    <Label fx:id="errorLabel" style="-fx-text-fill: red;" maxWidth="300" wrapText="true"/>
+
+    <Button text="Next" onAction="#handleNext" maxWidth="300"
+            style="-fx-background-color: #43927D; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 15"/>
+    <Button text="Back" onAction="#handleBack" maxWidth="300"
+            style="-fx-background-radius: 15"/>
+
+</VBox>

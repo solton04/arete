@@ -10,6 +10,8 @@ module cz.vse.java.recepty {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.slf4j;
+    requires java.sql;
+    requires java.desktop;
 
     opens cz.vse.java.recepty to javafx.fxml;
     exports cz.vse.java.recepty;

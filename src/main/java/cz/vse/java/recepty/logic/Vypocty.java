@@ -11,31 +11,24 @@ import cz.vse.java.recepty.enums.PhysicalActivity;
  */
 public class Vypocty {
 
-    /**
-     * Načtení informací o uživateli pro výpočet denního kalorického příjmu a makroživin.
-     */
-    Uzivatel user = new Uzivatel.Builder()
-            .setAge(30)
-            .setGender(true) //
-            .setHeight(180)
-            .setWeight(75)
-            .setPhysicalActivity(PhysicalActivity.MODERATE)
-            .build();
+    private Uzivatel user;
 
-    int Age = user.getAge();
-    boolean gender = user.isGender();
-    int Height = user.getHeight();
-    int Weight = user.getWeight();
-    PhysicalActivity physicalActivity = user.getPhysicalActivity();
+    public Vypocty(Uzivatel user) {
+        this.user = user;
+    }
 
     /**
      * Výpočet bazálního metabolického výdeje (BMR) pomocí Harris-Benedictovy rovnice.
      */
     public double vypocetBMR() {
-        if (gender) {       // Male
-            return 88.362 + (13.397 * Weight) + (4.799 * Height) - (5.677 * Age);
+        int age = user.getAge();
+        int height = user.getHeight();
+        int weight = user.getWeight();
+
+        if (user.isGender()) {       // Male
+            return 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
         } else {            // Female
-            return 447.593 + (9.247 * Weight) + (3.098 * Height) - (4.330 * Age);
+            return 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
         }
     }
 
@@ -43,6 +36,9 @@ public class Vypocty {
      * Výpočet celkového denního energetického výdeje (TDEE) pomocí Harris-Benedictovy rovnice.
      */
     public double vypocetTDEE() {
+        PhysicalActivity physicalActivity = user.getPhysicalActivity();
+        if (physicalActivity == null) return vypocetBMR() * 1.2;
+
         if (physicalActivity == PhysicalActivity.SEDENTARY) {
             return vypocetBMR() * 1.2;
         } else if (physicalActivity == PhysicalActivity.LIGHT) {
